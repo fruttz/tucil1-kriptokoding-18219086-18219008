@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>850</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #ffffff</string>
+  </property>
+  <widget class="QTextEdit" name="inputText">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>100</y>
+     <width>800</width>
+     <height>270</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>400</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTextEdit{
+	font: 14pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	border-radius: 10px; 
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="outputText">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>460</y>
+     <width>800</width>
+     <height>270</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTextEdit{
+	border: 3px solid #ffac74;
+	border-radius: 10px; 
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+	font: 14pt &quot;MS Shell Dlg 2&quot;;
+}
+</string>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="encBut">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>390</y>
+     <width>165</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 10pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffdab5;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffac74;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Encrypt</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="decBut">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>390</y>
+     <width>165</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 10pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffdab5;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffac74;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Decrypt</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>400</y>
+     <width>241</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Select One Time Pad to use</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="padList">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>400</y>
+     <width>140</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: &quot;MS Shell Dlg 2&quot;;
+padding-left: 10px;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="enigmaBut">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>760</y>
+     <width>350</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 11pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffffff;
+	border: 3px solid #ffac74;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffdab5;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Enigma Machine</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="backBut">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>760</y>
+     <width>350</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 11pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffffff;
+	border: 3px solid #ffac74;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffdab5;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Cipher Machine</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget{
+	background-color: #ffdab5;
+}
+</string>
+   </property>
+   <widget class="QPushButton" name="padBut">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>15</y>
+      <width>300</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	font: 700 10pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffffff;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffac74;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Make Pad</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

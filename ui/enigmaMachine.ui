@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EnigmaMachine</class>
+ <widget class="QDialog" name="EnigmaMachine">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>850</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #ffffff</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget{
+	background-color: #ffdab5;
+}
+</string>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>20</y>
+      <width>431</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #ac6e23;
+font: 500 18pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Enigma Machine</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPlainTextEdit" name="outputTextArea">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>240</y>
+     <width>411</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	border: 3px solid #ffac74;
+	border-radius: 10px; 
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding-left: 5px;
+	font: 14pt &quot;MS Shell Dlg 2&quot;;
+}
+</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="textInput">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>140</y>
+     <width>410</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>100</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Input</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>200</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Output</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>240</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Rotor Setting</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="rotorSetting">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>300</y>
+     <width>411</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>270</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Example: I II IV (antara I sampai VII)</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="reflectorSetting">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>540</y>
+     <width>411</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>510</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>B, C, B-Thin, C-Thin</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>480</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Reflector Setting</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="ringSetting">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>420</y>
+     <width>411</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>360</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Ring Setting</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>390</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Example: B U L (antara A hingga Z)</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plugboardSetting">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>660</y>
+     <width>411</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>600</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Plugboard</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>630</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Example: AB CD EF (pasangan harus unik)</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>625</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Example: ABC (antara A hingga Z)</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="messageKey">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>660</y>
+     <width>411</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_17">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>595</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Message Key</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>505</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Example: ABC (antara A hingga Z)</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="startPosition">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>540</y>
+     <width>411</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPlainTextEdit{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border: 1px solid #ffcca0;
+	color: #ac6e23;
+	background-color: #fff7ea;
+	padding: 10px;
+}
+
+QPlainTextEdit:hover {
+	border: 3px solid #ffac74;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_16">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>475</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #ac6e23;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Starting Position</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>100</y>
+     <width>421</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #39332d;
+font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Input dan Output Berlaku Dua Arah</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>130</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #837767;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>- Jika input plaintext, maka output encrypted</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>160</y>
+     <width>431</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #837767;
+font: 550 10pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>- Jika input encrypted, maka output plaintext</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cryptBut">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>750</y>
+     <width>410</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 11pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffdab5;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffac74;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Encrypt / Decrypt</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="backBut">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>750</y>
+     <width>190</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 11pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffffff;
+	border: 3px solid #ffac74;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffdab5;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Cipher Machine</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="otpBut">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>750</y>
+     <width>190</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 700 11pt &quot;MS Shell Dlg 2&quot;;
+	border: none;
+	border-left 2px solid transparent;
+	border-radius: 15px; 
+	background-color: #ffffff;
+	border: 3px solid #ffac74;
+	color: #ac6e23;
+}
+
+QPushButton:hover {
+	background-color: #ffdab5;
+}
+
+QPushButton:pressed {
+	background-color: #e69b69;
+	color: #fff;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>One Time Pad</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
