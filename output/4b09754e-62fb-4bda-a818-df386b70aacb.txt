@@ -1,5 +1,0 @@
-Cipher Text:
-r
-
-Cipher (per 5): 
-r

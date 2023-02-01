@@ -1,5 +1,0 @@
-Cipher Text:
-anacc
-
-Cipher (per 5): 
-anacc
