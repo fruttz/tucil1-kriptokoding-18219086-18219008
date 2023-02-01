@@ -5,194 +5,279 @@ import sys
 import uuid
 import os
 
-import vigenereCypher as vig
-import playfairCypher as pfc
-import extendedVigenere as ev
+import extendedVigenere
+import playfairCipher
+import vigenere
+import enigmaCipher
 
-import numpy as np
-import onetimepad as otp
+import numpy
+import onetimepad
 import pyperclip
 
-#MAIN SCREEN
-class main_screen(QMainWindow):
+class layarOTP(QDialog):
     def __init__(self):
-        super(main_screen, self).__init__()
-        loadUi("ui/cryptogui.ui",self)
+        #setup cipher screen (main screen)
+        super(layarOTP, self).__init__()
+        loadUi("ui/otpgui.ui", self)
 
-        self.inputBut.clicked.connect(self.input_file)
-        self.cryptBut.clicked.connect(self.process_file)
-        self.otpBut.clicked.connect(self.to_otp)
+        #tombol switch to cipher machine
+        self.backBut.clicked.connect(self.pindahlayarCipher)
+        #tombol switch to enigma machine
+        self.enigmaBut.clicked.connect(self.pindahlayarEnigma) 
+
+        #tombol encrypt OTP
+        self.encBut.clicked.connect(self.enkripsiOTP)
+        #tombol decrypt OTP
+        self.decBut.clicked.connect(self.dekripsiOTP)
+        #tombol make pad OTP     
+        self.padBut.clicked.connect(self.padBaru)
+        
+        self.padList.clear()
+
+        i = 0
+        while os.path.exists("storage/Pad%s.txt" % i):
+            self.padList.addItem(f"{round(int(i),0)}")
+            i += 1
+
+    def pindahlayarCipher(self):
+        cipherMachine = layarUtama()
+        widget.addWidget(cipherMachine)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def pindahlayarEnigma(self):
+        enigmaMachine = layarEnigma()
+        widget.addWidget(enigmaMachine)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def enkripsiOTP(self):
+        PadSel = self.padList.currentText()    
+        with open("Storage/Pad%s.txt" % PadSel, 'r') as f:
+            kuncipad = f.read()
+        cipher = onetimepad.encrypt(self.inputText.toPlainText(), kuncipad)
+        print("Cipher text: ", cipher)     
+        
+        self.outputText.setText(cipher)  
+        self.outputText.repaint()  
+        pyperclip.copy(cipher)    
+
+    def dekripsiOTP(self):      
+        PadSel = self.padList.currentText()   
+        with open("Storage/Pad%s.txt" % PadSel, 'r') as f:
+            kuncipad = f.read()           
+        pt = onetimepad.decrypt(self.inputText.toPlainText(), kuncipad)
+        print("Plain text: ", pt)
+        
+        self.outputText.setText(pt)  
+        self.outputText.repaint()  
+        pyperclip.copy(pt) 
+
+    def padBaru(self):
+        self.padBut.setEnabled(False)
+        n = 1024 ** 2  # 1 Mb of random text
+        letters = numpy.array(list(chr(ord('a') + i) for i in range(26)))    
+        chars = ''.join(numpy.random.choice(letters, n))
+        i = 0
+        while os.path.exists("Storage/Pad%s.txt" % i):
+            i += 1
+
+        with open("Storage/Pad%s.txt" % i, 'w+') as f:
+            f.write(chars)
+            print("One time pad %s written to disk " %i)
+
+        #reload pad
+        self.padList.clear()
+        i = 0
+        while os.path.exists("Storage/Pad%s.txt" % i):
+            self.padList.addItem(f"{round(int(i),0)}")
+            i += 1
+        self.padBut.setEnabled(True)
+
+#initial load enigma GUI
+class layarEnigma(QDialog):
+    def __init__(self):
+        #setup enigma screen
+        super(layarEnigma, self).__init__()
+        loadUi("ui/enigmaMachine.ui", self)
+
+        #tombol switch to cipher machine
+        self.backBut.clicked.connect(self.pindahlayarCipher)
+        #tombol switch to OTP machine
+        self.otpBut.clicked.connect(self.pindahlayarOTP)
+        #tombol encrypt atau decrypt enigma
+        self.cryptBut.clicked.connect(self.proccessEnigma)
+
+    def pindahlayarCipher(self):
+        cipherMachine = layarUtama()
+        widget.addWidget(cipherMachine)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def proccessEnigma(self):
+        inputText = self.textInput.toPlainText()
+        rotorSet = self.rotorSetting.toPlainText()
+        ringSet = self.ringSetting.toPlainText()
+        reflectorSet = self.reflectorSetting.toPlainText()
+        plugboardSet = self.plugboardSetting.toPlainText()
+        startPos = self.startPosition.toPlainText()
+        key = self.key.toPlainText()
+		
+        hasil = ""
+		
+        inition = enigmaCipher.initEnigma(rotorSet, ringSet, reflectorSet, plugboardSet)
+        outputText = enigmaCipher.enigma(inition, startPos, key, inputText) 
+		
+        hasil += ' '.join([outputText[i: i+5] for i in range(0, len(outputText), 5)])
+		
+        self.outputTextArea.setPlainText(hasil)	
+
+    def pindahlayarOTP(self):
+        otpMachine = layarOTP()
+        widget.addWidget(otpMachine)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+#initial cipher GUI(main screen)
+class layarUtama(QMainWindow):
+    def __init__(self):
+        #setup cipher screen (main screen)
+        super(layarUtama, self).__init__()
+        loadUi("ui/cryptogui.ui", self)
+    
+        #tombol input file
+        self.inputButton.clicked.connect(self.inputFile)
+        #tombol encrypt / decrypt
+        self.cryptBut.clicked.connect(self.processFile)
+        #tombol switch to enigma machine
+        self.enigmaBut.clicked.connect(self.pindahlayarEnigma) 
+        #tombol switch to OTP machine
+        self.otpBut.clicked.connect(self.pindahlayarOTP)
 
         self.path = ""
-    
-    def input_file(self):
+
+    def pindahlayarEnigma(self):
+        enigmaMachine = layarEnigma()
+        widget.addWidget(enigmaMachine)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def pindahlayarOTP(self):
+        otpMachine = layarOTP()
+        widget.addWidget(otpMachine)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def inputFile(self):
         file = QtWidgets.QFileDialog.getOpenFileName()
         self.path = file[0]
-        self.inputBut.setText(self.path.split('/')[-1])
-    
-    def process_file(self):
-        cipher_method = self.cipheroption.currentText()
-        plain_text = self.textInput.toPlainText()
-        key = self.keyInput.toPlainText()
+
+        self.inputButton.setText(self.path.split('/')[-1])
+
+    def processFile(self):
+        pilihanCipher = self.cipheroption.currentText()
+        pt = self.textInput.toPlainText()
+        kunci = self.kunciInput.toPlainText()
 
         if(self.path != ""):
             ext = os.path.splitext(self.path)[1]
             if(ext == ".txt"):
                 f = open(self.path)
-                plain_text = f.read()
-        if(len(key) == 0):
+                pt = f.read()
+        if(len(kunci) == 0):
             return
-        result = ""
 
-        #ENCRYPTION
-        if ("encrypt" in cipher_method.lower()):
-            if cipher_method == "Vigenere Cipher Encrypt":
-                cipher_text = vig.vigenere_encrypt(plain_text, key)
-                result += "Cipher Text:\n"
-                result += cipher_text
-                result += "\n\nCipher (per 5): \n"
-                result += ' '.join([cipher_text[i: i+5] for i in range(0, len(cipher_text), 5)])
-            
-            elif cipher_method == "Extended Vigenere Cipher Encrypt":
+        hasil = ""
+
+#encrypt code
+        if("encrypt" in pilihanCipher.lower()):
+            if pilihanCipher == "Vigenere Cipher Encrypt":
+                ct = vigenere.vigenerestdEnc(pt, kunci)
+
+                hasil += "Cipher Text:\n"
+                hasil += ct
+                # hasil += "\n\nCipher (per 5): \n"
+                # hasil += ' '.join([ct[i: i+5] for i in range(0, len(ct), 5)])
+
+            elif pilihanCipher == "Extended Vigenere Cipher Encrypt":
                 if(self.path != ""):
-                    directory = os.path.dirname(os.path.realpath(__file__))
-                    file_name = "output/" + str(uuid.uuid4()) + os.path.splitext(self.path)[1]
-                    file_path = os.path.join(directory, file_name)
+                    direktori = os.path.dirname(os.path.realpath(__file__))
+                    namaFile = "output/" + str(uuid.uuid4()) + os.path.splitext(self.path)[1]
+                    pathFile = os.path.join(direktori, namaFile)
 
-                    success = ev.extended_vigenere_encrypt(self.path, key, file_path)
-                    if(success):
-                        result += "Enkripsi berhasil!\n\n"
-                        result += f"Nama file: {file_name}"
+                    sukses = extendedVigenere.extVigenereEnkripsi(
+                        self.path, 
+                        kunci, 
+                        pathFile
+                    )
+                    if(sukses):
+                        hasil += "Encrypt sukses!\n\n"
+                        hasil += "namaFile: %s" %(namaFile)
                     else:
-                        result += "Enkripsi gagal"
+                        hasil += "Gagal encrypt file"
                 else:
-                    result = "Silakan masukkan file!"
-            
-            elif cipher_method == "Playfair Cipher Enrcypt":
-                playfair_square = pfc.make_playfair_square(key)
-                result += pfc.encrypt(plain_text, playfair_square) + '\n\n'
-                for i in range(len(playfair_square)):
-                    for j in range(len(playfair_square[0])):
-                        result += ('{} '.format(playfair_square[i][j]))
-                    result += '\n'
-            
-        #DECRYPTION
+                    hasil = "Please input file!"
+
+            elif pilihanCipher == "Playfair Cipher Encrypt":
+                # encryption
+                playfairSquare = playfairCipher.createPlayfairSquare(kunci)
+                hasil += playfairCipher.encrypt(pt, playfairSquare) + '\n\n'
+                for i in range(len(playfairSquare)):
+                    for j in range(len(playfairSquare[0])):
+                        hasil += ('{} '.format(playfairSquare[i][j]))
+                    hasil += '\n'   
+
+#decrypt code
         else:
-            if cipher_method == "Vigenere Cipher Decrypt":
-                plain_text = vig.vigenere_decrypt(plain_text, key)
+            if pilihanCipher == "Vigenere Cipher Decrypt":
+                pt = vigenere.vigenerestdDec(pt, kunci)
 
-                result += "Plain Text:\n"
-                result += plain_text
-                result += "\n\nPlain Text (per 5): \n"
-                result += ' '.join([plain_text[i: i+5] for i in range(0, len(plain_text), 5)])
-            
-            elif cipher_method == "Extended Vigenere Cipher Decrypt":
+                hasil += "Plain Text:\n"
+                hasil += pt
+                # hasil += "\n\nPlain Text (per 5): \n"
+                # hasil += ' '.join([pt[i: i+5] for i in range(0, len(pt), 5)])
+
+            elif pilihanCipher == "Extended Vigenere Cipher Decrypt":
                 if(self.path != ""):
-                    directory = os.path.dirname(os.path.realpath(__file__))
-                    file_name = "output/" + str(uuid.uuid4()) + os.path.splitext(self.path)[1]
-                    file_path = os.path.join(directory, file_name)
+                    direktori = os.path.dirname(os.path.realpath(__file__))
+                    namaFile = "output/" + str(uuid.uuid4()) + os.path.splitext(self.path)[1]
+                    pathFile = os.path.join(direktori, namaFile)
 
-                    success = ev.extended_vigenere_decrypt(self.path, key, file_path)
-                    if success:
-                        result += "Dekripsi berhasil!\n\n"
-                        result += f"Nama file: {file_name}"
+                    sukses = extendedVigenere.extVigenereDekripsi(
+                        self.path, 
+                        kunci, 
+                        pathFile
+                    )
+                    if(sukses):
+                        hasil += "Decrypt sukses!\n\n"
+                        hasil += "namaFile: %s" %(namaFile)
                     else:
-                        result += "Dekripsi gagal"
+                        hasil += "Gagal decrypt file"
                 else:
-                    "Silakan masukkan file"
-            
-            elif cipher_method == "Playfair Cipher Decrypt":
-                playfair_square = pfc.make_playfair_square(key)
-                result += pfc.decrypt(plain_text, playfair_square)
-                for i in range(len(playfair_square)):
-                    for j in range(len(playfair_square[0])):
-                        result += ('{} '.format(playfair_square[i][j]))
-                    result += '\n'
+                    hasil = "Please input file!"
 
-        if("Extended Vigenere Cipher" not in cipher_method):
-            directory = os.path.dirname(os.path.realpath(__file__))
-            file_name = "output/" + str(uuid.uuid4()) + ".txt"
-            file_path = os.path.join(directory, file_name)
+            elif pilihanCipher == "Playfair Cipher Decrypt":
+                playfairSquare = playfairCipher.createPlayfairSquare(kunci)
+                hasil += playfairCipher.decrypt(pt, playfairSquare) + '\n\n'
+                for i in range(len(playfairSquare)):
+                    for j in range(len(playfairSquare[0])):
+                        hasil += ('{} '.format(playfairSquare[i][j]))
+                    hasil += '\n'
 
-            f = open(file_path, 'w')
-            f.write(result)
+        if("Extended Vigenere Cipher" not in pilihanCipher):
+            direktori = os.path.dirname(os.path.realpath(__file__))
+            namaFile = "output/" + str(uuid.uuid4()) + ".txt"
+            pathFile = os.path.join(direktori, namaFile)
 
-            result += "\n\n\n\n"
-            result += "Berhasil!\n\n"
-            result += f"Nama file: {file_name}"
-        
-        self.outputTB.setPlainText(result)
+            f = open(pathFile, 'w')
+            f.write(hasil)
+
+            hasil += "\n\n\n\n"
+            hasil += "Sukses!\n\n"
+            hasil += "namaFile: %s" %(namaFile)
+
+#refresh input
+        self.outputTB.setPlainText(hasil)
         self.path = ""
-        self.inputBut.setText("Atau, masukkan file ke sini!")
-    
-    def to_otp(self):
-        otp_machine = otp_screen()
-        widget.addWidget(otp_machine)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        self.inputButton.setText("Atau, masukkan file ke sini!")
 
-#ONE TIME PAD
-class otp_screen(QDialog):
-    def __init__(self):
-        super(otp_screen, self).__init__()
-        loadUi("ui/otpgui.ui", self)
-        self.backBut.clicked.connect(self.to_main)
-        self.encBut.clicked.connect(self.otp_encrypt)
-        self.decBut.clicked.connect(self.otp_decrypt)
-        self.padBut.clicked.connect(self.new_pad)
-        self.padList.clear()
-
-        i = 0
-        while os.path.exists(f"storage/Pad{i}.txt"):
-            self.padList.addItem(f"{round(int(i),0)}")
-            i += 1
-        
-    def otp_encrypt(self):
-        pad_cell = self.padList.currentText()
-        with open(f"Storage/Pad{pad_cell}.txt", 'r') as f:
-            keypad = f.read()
-        cipher_text = otp.encrypt(self.inputText.toPlainText(), keypad)
-        print("Cipher text: ", cipher_text)
-        self.outputText.setText(cipher_text)
-        self.outputText.repaint()
-        pyperclip.copy(cipher_text)
-    
-    def otp_decrypt(self):
-        pad_cell = self.padList.currentText()
-        with open(f"Storage/Pad{pad_cell}.txt", 'r') as f:
-            keypad = f.read()
-        plain_text = otp.decrypt(self.inputText.toPlainText(), keypad)
-        print("Cipher text: ", plain_text)
-        self.outputText.setText(plain_text)
-        self.outputText.repaint()
-        pyperclip.copy(plain_text)
-    
-    def new_pad(self):
-        self.padBut.setEnabled(False)
-        n = 1024 ** 2
-        letters = np.array(list(chr(ord('a') + i) for i in range(26)))
-        chars = ''.join(np.random.choice(letters,n))
-        i = 0
-        while os.path.exists(f"Storage/Pad{i}.txt"):
-            i += 1
-        with open(f"Storage/Pad{i}.txt",'w+') as f:
-            f.write(chars)
-            print(f"One time pad {i} berhasil disimpan")
-        
-        self.padList.clear()
-        i = 0
-        while os.path.exists(f"Storage/Pad{i}.txt"):
-            self.padList.addItem(f"{round(int(i),0)}")
-            i += 1
-        self.padBut.setEnabled(True)
-
-    def to_main(self):
-        main = main_screen()
-        widget.addWidget(main)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-#Driver
+#main prog
 app = QApplication(sys.argv)
-main = main_screen()
+main = layarUtama()
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(main)
 widget.setFixedWidth(1000)
@@ -202,11 +287,3 @@ try:
     sys.exit(app.exec_())
 except:
     print("Exiting")
-
-
-
-
-
-            
-        
-

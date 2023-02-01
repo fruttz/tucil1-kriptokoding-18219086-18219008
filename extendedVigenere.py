@@ -1,34 +1,39 @@
-import vigenereCypher as vig
+import vigenere
 
-FILESIZE_MAX = 256
+BYTE_MAX = 256
 
-def extended_vigenere_encrypt(path: str, key: str, output: str) -> bool:
+def extVigenereEnkripsi(src: str, kunci: str, output: str) -> bool :
     try:
-        f = open(path, 'rb')
-        data = bytearray(f.read())
-        key = vig.generate_key(data, vig.process_text(key))
-        for idx, plaintxt in enumerate(data):
-            data[idx] = (plaintxt + ord(key[idx])) % FILESIZE_MAX
+        f = open(src, 'rb')
+        fileContent = bytearray(f.read())
+        kunci = vigenere.getkunci(fileContent, vigenere.clean_text(kunci))
+
+        for idx, plainText in enumerate(fileContent):
+            fileContent[idx] = (plainText + ord(kunci[idx])) % BYTE_MAX
+
         f.close()
         f = open(output, 'wb')
-        f.write(data)
+        f.write(fileContent)
         f.close()
+
         return True
     except Exception as e:
         return False
 
-def extended_vigenere_decrypt(path: str, key: str, output: str) -> bool:
+def extVigenereDekripsi(src: str, kunci: str, output: str) -> str :
     try:
-        f = open(path, 'rb')
-        data = bytearray(f.read())
-        key = vig.generate_key(data, vig.process_text(key))
-        for idx, ciphertxt in enumerate(data):
-            data[idx] = (ciphertxt - ord(key[idx])) % FILESIZE_MAX
-        f.close()
-        f.open(output, 'wb')
-        f.write(data)
-        f.close()
-        return True
-    except Exception as e:
-        return False
+        f = open(src, 'rb')
+        fileContent = bytearray(f.read())
+        kunci = vigenere.getkunci(fileContent, vigenere.clean_text(kunci))
 
+        for idx, cipherText in enumerate(fileContent):
+            fileContent[idx] = (cipherText - ord(kunci[idx])) % BYTE_MAX
+
+        f.close()
+        f = open(output, 'wb')
+        f.write(fileContent)
+        f.close()
+
+        return True
+    except:
+        return False

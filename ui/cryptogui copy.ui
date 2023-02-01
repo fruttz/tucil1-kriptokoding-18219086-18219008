@@ -20,10 +20,10 @@
 			<widget class="QPlainTextEdit" name="outputTB">
 				<property name="geometry">
 					<rect>
-						<x>70</x>
-						<y>340</y>
-						<width>870</width>
-						<height>200</height>
+						<x>530</x>
+						<y>150</y>
+						<width>410</width>
+						<height>540</height>
 					</rect>
 				</property>
 				<property name="styleSheet">
@@ -55,7 +55,7 @@
 font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
 				</property>
 				<property name="text">
-					<string>Kunci</string>
+					<string>Output (Cipher Text)</string>
 				</property>
 			</widget>
 			<widget class="QWidget" name="widget" native="true">
@@ -76,9 +76,9 @@ font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
 				<widget class="QLabel" name="label">
 					<property name="geometry">
 						<rect>
-							<x>220</x>
+							<x>280</x>
 							<y>20</y>
-							<width>600</width>
+							<width>431</width>
 							<height>41</height>
 						</rect>
 					</property>
@@ -87,7 +87,7 @@ font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
 font: 500 18pt &quot;MS Shell Dlg 2&quot;;</string>
 					</property>
 					<property name="text">
-						<string>Tugas 1 Kriptokoding: Cipher Machine</string>
+						<string>Cipher Machine</string>
 					</property>
 					<property name="alignment">
 						<set>Qt::AlignCenter</set>
@@ -124,9 +124,8 @@ QPlainTextEdit:hover {
 			<widget class="QPushButton" name="inputButton">
 				<property name="geometry">
 					<rect>
-                         <!-- Input your file here button -->
 						<x>70</x>
-						<y>610</y>
+						<y>500</y>
 						<width>410</width>
 						<height>120</height>
 					</rect>
@@ -136,7 +135,7 @@ QPlainTextEdit:hover {
 				</property>
 				<property name="styleSheet">
 					<string notr="true">QPushButton {
-	font: 500 17pt &quot;MS Shell Dlg 2&quot;;
+	font: 500 20pt &quot;MS Shell Dlg 2&quot;;
 	border: #012b5e;
 	border-left 2px solid transparent;
 	border-radius: 15px; 
@@ -162,7 +161,7 @@ QPushButton:pressed {
 				<property name="geometry">
 					<rect>
 						<x>80</x>
-						<y>565</y>
+						<y>660</y>
 						<width>391</width>
 						<height>31</height>
 					</rect>
@@ -224,19 +223,18 @@ font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
 					<string>Plain Text</string>
 				</property>
 			</widget>
-			<widget class="QPushButton" name="cryptBut"> 
+			<widget class="QPushButton" name="cryptBut">
 				<property name="geometry">
 					<rect>
-                         <!-- Run Button -->
-						<x>530</x>
-						<y>610</y>
+						<x>70</x>
+						<y>720</y>
 						<width>410</width>
-						<height>120</height>
+						<height>65</height>
 					</rect>
 				</property>
 				<property name="styleSheet">
 					<string notr="true">QPushButton {
-	font: 700 20pt &quot;MS Shell Dlg 2&quot;;
+	font: 700 11pt &quot;MS Shell Dlg 2&quot;;
 	border: none;
 	border-left 2px solid transparent;
 	border-radius: 15px; 
@@ -255,7 +253,7 @@ QPushButton:pressed {
 </string>
 				</property>
 				<property name="text">
-					<string>Run!</string>
+					<string>Encrypt / Decrypt</string>
 				</property>
 			</widget>
 			<widget class="QLabel" name="label_4">
@@ -263,7 +261,7 @@ QPushButton:pressed {
 					<rect>
 						<x>70</x>
 						<y>300</y>
-						<width>300</width>
+						<width>121</width>
 						<height>31</height>
 					</rect>
 				</property>
@@ -272,14 +270,14 @@ QPushButton:pressed {
 font: 550 14pt &quot;MS Shell Dlg 2&quot;;</string>
 				</property>
 				<property name="text">
-					<string>Hasil Cipher Text</string>
+					<string>kunci</string>
 				</property>
 			</widget>
 			<widget class="QPlainTextEdit" name="kunciInput">
 				<property name="geometry">
 					<rect>
-						<x>530</x>
-						<y>150</y>
+						<x>70</x>
+						<y>340</y>
 						<width>410</width>
 						<height>120</height>
 					</rect>
@@ -306,7 +304,7 @@ QPlainTextEdit:hover {
 				<property name="geometry">
 					<rect>
 						<x>530</x>
-						<y>750</y>
+						<y>720</y>
 						<width>190</width>
 						<height>65</height>
 					</rect>
@@ -340,7 +338,7 @@ QPushButton:pressed {
 				<property name="geometry">
 					<rect>
 						<x>750</x>
-						<y>750</y>
+						<y>720</y>
 						<width>190</width>
 						<height>65</height>
 					</rect>

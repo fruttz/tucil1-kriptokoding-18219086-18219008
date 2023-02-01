@@ -1,7 +1,7 @@
 from enigma.machine import EnigmaMachine
 
 def initEnigma(wheelOrder, ringSettings, reflector, plugboardSettings):
-    machine = EnigmaMachine.from_key_sheet(
+    machine = EnigmaMachine.from_kunci_sheet(
         rotors = wheelOrder,
         ring_settings = ringSettings,
         reflector = reflector,
@@ -9,10 +9,10 @@ def initEnigma(wheelOrder, ringSettings, reflector, plugboardSettings):
     )
     return machine
 
-def enigma(machine, initPosition, messageKey, inputText):
+def enigma(machine, initPosition, key, inputText):
     machine.set_display(initPosition)
-    messageKey = machine.process_text(messageKey)
-    machine.set_display(messageKey)
+    key = machine.process_text(key)
+    machine.set_display(key)
 
     text = machine.process_text(inputText, replace_char='')
     return text
