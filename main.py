@@ -18,7 +18,7 @@ class layarOTP(QDialog):
     def __init__(self):
         #setup cipher screen (main screen)
         super(layarOTP, self).__init__()
-        loadUi("ui/otpgui.ui", self)
+        loadUi("ui/layarotp.ui", self)
 
         #tombol switch to cipher machine
         self.backBut.clicked.connect(self.pindahlayarCipher)
@@ -45,8 +45,8 @@ class layarOTP(QDialog):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def pindahlayarEnigma(self):
-        enigmaMachine = layarEnigma()
-        widget.addWidget(enigmaMachine)
+        layarenigma = layarEnigma()
+        widget.addWidget(layarenigma)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def enkripsiOTP(self):
@@ -64,12 +64,12 @@ class layarOTP(QDialog):
         PadSel = self.padList.currentText()   
         with open("Storage/Pad%s.txt" % PadSel, 'r') as f:
             kuncipad = f.read()           
-        pt = onetimepad.decrypt(self.inputText.toPlainText(), kuncipad)
-        print("Plain text: ", pt)
+        plainText = onetimepad.decrypt(self.inputText.toPlainText(), kuncipad)
+        print("Plain text: ", plainText)
         
-        self.outputText.setText(pt)  
+        self.outputText.setText(plainText)  
         self.outputText.repaint()  
-        pyperclip.copy(pt) 
+        pyperclip.copy(plainText) 
 
     def padBaru(self):
         self.padBut.setEnabled(False)
@@ -97,7 +97,7 @@ class layarEnigma(QDialog):
     def __init__(self):
         #setup enigma screen
         super(layarEnigma, self).__init__()
-        loadUi("ui/enigmaMachine.ui", self)
+        loadUi("ui/layarenigma.ui", self)
 
         #tombol switch to cipher machine
         self.backBut.clicked.connect(self.pindahlayarCipher)
@@ -137,24 +137,24 @@ class layarEnigma(QDialog):
 #initial cipher GUI(main screen)
 class layarUtama(QMainWindow):
     def __init__(self):
-        #setup cipher screen (main screen)
+        #setup lauar utama
         super(layarUtama, self).__init__()
-        loadUi("ui/cryptogui.ui", self)
+        loadUi("ui/layarutama.ui", self)
     
         #tombol input file
         self.inputButton.clicked.connect(self.inputFile)
-        #tombol encrypt / decrypt
+        #tombol run
         self.cryptBut.clicked.connect(self.processFile)
-        #tombol switch to enigma machine
+        #tombol switch ke layar enigma
         self.enigmaBut.clicked.connect(self.pindahlayarEnigma) 
-        #tombol switch to OTP machine
+        #tombol switch ke layar OTP
         self.otpBut.clicked.connect(self.pindahlayarOTP)
 
         self.path = ""
 
     def pindahlayarEnigma(self):
-        enigmaMachine = layarEnigma()
-        widget.addWidget(enigmaMachine)
+        layarenigma = layarEnigma()
+        widget.addWidget(layarenigma)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def pindahlayarOTP(self):
@@ -170,14 +170,14 @@ class layarUtama(QMainWindow):
 
     def processFile(self):
         pilihanCipher = self.cipheroption.currentText()
-        pt = self.textInput.toPlainText()
+        plainText = self.textInput.toPlainText()
         kunci = self.kunciInput.toPlainText()
 
         if(self.path != ""):
             ext = os.path.splitext(self.path)[1]
             if(ext == ".txt"):
                 f = open(self.path)
-                pt = f.read()
+                plainText = f.read()
         if(len(kunci) == 0):
             return
 
@@ -186,12 +186,10 @@ class layarUtama(QMainWindow):
 #encrypt code
         if("encrypt" in pilihanCipher.lower()):
             if pilihanCipher == "Vigenere Cipher Encrypt":
-                ct = vigenere.vigenerestdEnc(pt, kunci)
+                cipherText = vigenere.vigenerestdEnkripsi(plainText, kunci)
 
                 hasil += "Cipher Text:\n"
-                hasil += ct
-                # hasil += "\n\nCipher (per 5): \n"
-                # hasil += ' '.join([ct[i: i+5] for i in range(0, len(ct), 5)])
+                hasil += cipherText
 
             elif pilihanCipher == "Extended Vigenere Cipher Encrypt":
                 if(self.path != ""):
@@ -215,7 +213,7 @@ class layarUtama(QMainWindow):
             elif pilihanCipher == "Playfair Cipher Encrypt":
                 # encryption
                 playfairSquare = playfairCipher.createPlayfairSquare(kunci)
-                hasil += playfairCipher.encrypt(pt, playfairSquare) + '\n\n'
+                hasil += playfairCipher.encrypt(plainText, playfairSquare) + '\n\n'
                 for i in range(len(playfairSquare)):
                     for j in range(len(playfairSquare[0])):
                         hasil += ('{} '.format(playfairSquare[i][j]))
@@ -224,12 +222,10 @@ class layarUtama(QMainWindow):
 #decrypt code
         else:
             if pilihanCipher == "Vigenere Cipher Decrypt":
-                pt = vigenere.vigenerestdDec(pt, kunci)
+                plainText = vigenere.vigenerestdDekripsi(plainText, kunci)
 
                 hasil += "Plain Text:\n"
-                hasil += pt
-                # hasil += "\n\nPlain Text (per 5): \n"
-                # hasil += ' '.join([pt[i: i+5] for i in range(0, len(pt), 5)])
+                hasil += plainText
 
             elif pilihanCipher == "Extended Vigenere Cipher Decrypt":
                 if(self.path != ""):
@@ -252,7 +248,7 @@ class layarUtama(QMainWindow):
 
             elif pilihanCipher == "Playfair Cipher Decrypt":
                 playfairSquare = playfairCipher.createPlayfairSquare(kunci)
-                hasil += playfairCipher.decrypt(pt, playfairSquare) + '\n\n'
+                hasil += playfairCipher.decrypt(plainText, playfairSquare) + '\n\n'
                 for i in range(len(playfairSquare)):
                     for j in range(len(playfairSquare[0])):
                         hasil += ('{} '.format(playfairSquare[i][j]))
@@ -275,7 +271,7 @@ class layarUtama(QMainWindow):
         self.path = ""
         self.inputButton.setText("Atau, masukkan file ke sini!")
 
-#main prog
+#main program
 app = QApplication(sys.argv)
 main = layarUtama()
 widget = QtWidgets.QStackedWidget()

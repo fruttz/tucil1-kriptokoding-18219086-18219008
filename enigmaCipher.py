@@ -1,14 +1,5 @@
 from enigma.machine import EnigmaMachine
 
-def initEnigma(wheelOrder, ringSettings, reflector, plugboardSettings):
-    machine = EnigmaMachine.from_kunci_sheet(
-        rotors = wheelOrder,
-        ring_settings = ringSettings,
-        reflector = reflector,
-        plugboard_settings = plugboardSettings
-    )
-    return machine
-
 def enigma(machine, initPosition, key, inputText):
     machine.set_display(initPosition)
     key = machine.process_text(key)
@@ -19,3 +10,12 @@ def enigma(machine, initPosition, key, inputText):
 
 def rotorPosition(machine):
     return machine.get_display()
+
+def initEnigma(wheelOrder, ringSettings, reflector, plugboardSettings):
+    machine = EnigmaMachine.from_kunci_sheet(
+        rotors = wheelOrder,
+        ring_settings = ringSettings,
+        reflector = reflector,
+        plugboard_settings = plugboardSettings
+    )
+    return machine

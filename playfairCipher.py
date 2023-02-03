@@ -1,32 +1,6 @@
 import re
 
-def textCleaning(text):
-    text = text.upper()
-    text = re.sub(r'\s*\d+\s*', '', text)
-    text = re.sub(r'[^\w\s]', '', text)
-    text = text.replace(' ', '')
-    return text
-
-def postProcess(text):
-    text = [text[i:i+5] for i in range(0, len(text), 5)]
-    text = ' '.join(text)
-    return text
-
-def matriks(x, y, initial):
-    return [[initial for i in range(x)] for j in range(y)]
-
-def locateIndex(c, matriksPlayfair):  # get location of each character
-    loc = list()
-    if c == 'J':
-        c = 'I'
-    for i, j in enumerate(matriksPlayfair):
-        for k, l in enumerate(j):
-            if c == l:
-                loc.append(i)
-                loc.append(k)
-                return loc
-
-def encrypt(text, matriksPlayfair):
+def encrypt(text, matriksPlayfair):  # enkripsi
     text = textCleaning(text)
     cipher = ''
     i = 0
@@ -53,8 +27,7 @@ def encrypt(text, matriksPlayfair):
     cipher = postProcess(cipher)
     return cipher
 
-
-def decrypt(cipher, matriksPlayfair):  # decryption
+def decrypt(cipher, matriksPlayfair):  # dekripsi
     cipher = textCleaning(cipher)
     plainText = ''
     i = 0
@@ -73,7 +46,6 @@ def decrypt(cipher, matriksPlayfair):  # decryption
 
     plainText = postProcess(plainText)
     return plainText
-
 
 def createPlayfairSquare(kunci):
     kunci = kunci.upper()
@@ -103,3 +75,29 @@ def createPlayfairSquare(kunci):
             thisMatrix[i][j] = hasil[k]
             k += 1
     return thisMatrix
+
+def textCleaning(text):
+    text = text.upper()
+    text = re.sub(r'\s*\d+\s*', '', text)
+    text = re.sub(r'[^\w\s]', '', text)
+    text = text.replace(' ', '')
+    return text
+
+def postProcess(text):
+    text = [text[i:i+5] for i in range(0, len(text), 5)]
+    text = ' '.join(text)
+    return text
+
+def matriks(x, y, initial):
+    return [[initial for i in range(x)] for j in range(y)]
+
+def locateIndex(c, matriksPlayfair):  # get location of each character
+    loc = list()
+    if c == 'J':
+        c = 'I'
+    for i, j in enumerate(matriksPlayfair):
+        for k, l in enumerate(j):
+            if c == l:
+                loc.append(i)
+                loc.append(k)
+                return loc
